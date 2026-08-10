@@ -106,6 +106,22 @@ Open [http://localhost:3000](http://localhost:3000) in a browser.
 2. Verify the overdue badge uses the dark-mode danger colour token (`--danger-color`
    in `[data-theme="dark"]`) and is still readable.
 
+### Scenario G — List order is unaffected by overdue status (FR-008)
+
+1. Create several todos with a mix of past, today, and future due dates, noting the order
+   they appear in (newest first, by creation time).
+2. Verify overdue items are visually flagged but remain in the same creation-date position —
+   no todo moves up or down in the list as a result of becoming overdue.
+
+### Scenario H — No live refresh while idle (FR-009)
+
+1. Create a todo due today. Leave the page open without interacting with it.
+2. Manually advance the system clock past midnight (or wait until midnight) without
+   reloading the page or triggering any todo action.
+3. Verify the item does NOT automatically flip to overdue while idle.
+4. Reload the page (or toggle/edit any todo to trigger a re-render) and verify the item
+   now correctly shows as overdue.
+
 ---
 
 ## Coverage Check

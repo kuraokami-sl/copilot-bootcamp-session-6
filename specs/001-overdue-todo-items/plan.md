@@ -9,9 +9,11 @@
 Add a visual overdue indicator to the `TodoCard` component so that any incomplete todo whose
 due date is strictly before today is immediately distinguishable (User Story 1), the indicator
 disappears the moment a task is completed (User Story 2), and it reacts immediately when the
-due date is changed or cleared (User Story 3). The change is purely a frontend presentation
-concern — no backend modifications are required. A pure utility function (`isOverdue`)
-encapsulates the date comparison logic and is independently unit-tested.
+due date is changed or cleared (User Story 3). Per the clarified spec, the feature is styling
+only: no todo reordering (FR-008) and no time-based polling — overdue status is recalculated
+only on render (FR-009). The change is purely a frontend presentation concern — no backend
+modifications are required. A pure utility function (`isOverdue`) encapsulates the date
+comparison logic and is independently unit-tested.
 
 ## Technical Context
 
@@ -33,7 +35,8 @@ update on toggle/edit (User Stories 2 and 3) with no additional network round-tr
 
 **Constraints**: No backend changes. Must pass ESLint. Must use CSS custom properties
 (no hard-coded colours). Must satisfy the 8 px spacing grid. Must not rely on colour alone
-for the overdue signal (FR-007).
+for the overdue signal (FR-007). Must not reorder the todo list (FR-008). Must not introduce
+timers/polling to refresh overdue state (FR-009).
 
 **Scale/Scope**: Single-user todo app; small number of todos per user.
 
@@ -46,7 +49,7 @@ for the overdue signal (FR-007).
 | I. Single Responsibility | ✅ PASS | Overdue logic extracted to a standalone utility; `TodoCard` only handles rendering |
 | II. Test-Driven Quality | ✅ PASS | `isOverdue` utility and updated `TodoCard` rendering both require unit tests; ≥80% coverage maintained |
 | III. Consistent Code Style | ✅ PASS | `camelCase` for utility, `PascalCase` preserved for component; ESLint must stay green |
-| IV. Simplicity | ✅ PASS | No filtering, sorting, or extra features introduced; only what the spec defines |
+| IV. Simplicity | ✅ PASS | No filtering, sorting, or extra features introduced; only what the spec defines. No reordering (FR-008) and no polling/timers (FR-009) confirmed via clarification |
 | V. Design Consistency | ✅ PASS | CSS class uses `var(--danger-color)` token; text badge ensures signal beyond colour alone |
 
 All gates pass. No complexity violations to track.

@@ -38,6 +38,11 @@ existing todo fields, satisfying FR-001 through FR-004.
 **Today's date** is computed as `new Date().toLocaleDateString('en-CA')` which returns
 `YYYY-MM-DD` in the client's local timezone, matching the format of stored `dueDate` values.
 
+Recalculation happens only when the component renders (page load, or a re-render triggered
+by a completion toggle or due-date edit) — no timers or polling are introduced (FR-009).
+Overdue status never changes the list's sort order (FR-008); it is a purely visual
+annotation on top of the existing creation-date ordering.
+
 ---
 
 ## State Transitions
@@ -49,6 +54,9 @@ existing todo fields, satisfying FR-001 through FR-004.
 [incomplete, past date]    →  OVERDUE  ◄── visual indicator shown
 [complete, any date]       →  never overdue  (even if past)
 ```
+
+Note: none of these transitions change a todo's position in the list (FR-008); the list
+remains sorted by `createdAt` regardless of overdue state.
 
 Transitions that affect the overdue indicator (map to User Stories 2 and 3, FR-005/FR-006):
 

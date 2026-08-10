@@ -63,7 +63,14 @@ The rendered card MUST NOT include the `todo-card--overdue` class or the overdue
 Because `isOverdue` is invoked on every render using the current `todo.dueDate` and
 `todo.completed` props, no additional state or effect is required — toggling completion
 or editing the due date already triggers a parent state update, which re-renders
-`TodoCard` and re-evaluates `isOverdue` automatically (FR-005, FR-006).
+`TodoCard` and re-evaluates `isOverdue` automatically (FR-005, FR-006). No `setInterval`
+or other timer-based refresh is permitted (FR-009).
+
+### List ordering (FR-008)
+
+The `TodoList` component MUST NOT change sort/filter logic based on overdue status.
+Todos remain ordered by `createdAt` (newest first) exactly as before this feature;
+the overdue indicator is a `TodoCard`-level visual annotation only.
 
 ---
 
@@ -92,4 +99,5 @@ MUST NOT hard-code any colour values — MUST reference CSS custom properties fr
 - A todo with no due date: renders with **no date information and no overdue indicator**
 - A todo due exactly today: renders with **no overdue indicator**
 - The overdue state updates **within the same React render cycle** as toggle/edit actions —
-  no polling, no extra API calls required
+  no polling, no extra API calls required (FR-009)
+- The relative order of todos in the list is unaffected by overdue status (FR-008)

@@ -10,6 +10,13 @@
 want to easily identify and distinguish overdue tasks in my todo list, so that I can prioritize
 my work and quickly see which tasks are past their due date."
 
+## Clarifications
+
+### Session 2026-08-10
+
+- Q: Should overdue todos be moved or grouped to the top of the list, or stay in the existing creation-date order with only a visual style difference? → A: Keep existing creation-date order; visual indicator only (no reordering).
+- Q: Should the overdue indicator update live while the page stays open past midnight, or only recalculate the next time the user interacts with or reloads the page? → A: Recalculate only on next interaction or page reload (no live polling).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Spot Overdue Tasks Instantly (Priority: P1)
@@ -109,6 +116,11 @@ indicator appears immediately.
 - **FR-007**: The overdue indicator MUST be distinguishable through means other than colour
   alone (e.g., text label or icon), so it remains perceivable to users who cannot rely on
   colour cues.
+- **FR-008**: The system MUST NOT change the existing display order of todos as a result of
+  overdue status; overdue and non-overdue items remain in their existing creation-date order.
+- **FR-009**: The system MUST recalculate overdue status only on render (e.g., page load, or a
+  re-render triggered by a completion or due-date change) and MUST NOT poll or refresh purely
+  due to elapsed time while the page is idle.
 
 ### Key Entities
 
@@ -135,7 +147,5 @@ indicator appears immediately.
 - The overdue indicator's specific visual design (colour, icon, wording) is an implementation
   detail to be determined during planning, provided it satisfies the non-colour-alone
   requirement (FR-007).
-- This feature affects only how existing todos are displayed; no new user-facing actions
-  (filtering, sorting, notifications) are introduced.
 - Desktop web usage is the primary context; no mobile-specific behaviour is required.
 

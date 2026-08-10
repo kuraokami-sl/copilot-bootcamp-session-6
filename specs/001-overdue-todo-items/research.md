@@ -89,15 +89,24 @@ in the existing codebase.
 
 **Rationale**: Since overdue state is derived (not stored), it is automatically
 recomputed on every render with no caching, timers, or subscriptions required.
+This was confirmed in the 2026-08-10 clarification session and is now codified
+as FR-009 (recalculate on render only, no polling) and FR-008 (no reordering of
+the list based on overdue status).
 
 **Alternatives considered**:
 - `setInterval` polling to refresh overdue state — rejected; unnecessary since the
   state changes only in response to user actions that already trigger re-renders,
-  and continuous polling for elapsed time was explicitly scoped out (edge cases).
+  and continuous polling for elapsed time was explicitly scoped out (FR-009).
+- Sorting/grouping overdue items to the top of the list — rejected; explicitly
+  scoped out by the user during clarification (FR-008) to keep the change
+  presentation-only and avoid new list-ordering logic.
 
 ---
 
 ## All NEEDS CLARIFICATION items: Resolved
 
 No `[NEEDS CLARIFICATION]` markers were present in the spec. All research questions
-arose from codebase exploration and are now resolved. Implementation can proceed.
+arose from codebase exploration and are now resolved. Two additional scope questions
+(list reordering, live midnight refresh) were confirmed with the user during the
+`/speckit-clarify` session on 2026-08-10 and are codified as FR-008 and FR-009.
+Implementation can proceed.

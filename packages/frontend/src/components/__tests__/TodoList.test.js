@@ -59,4 +59,17 @@ describe('TodoList Component', () => {
     expect(screen.getAllByLabelText(/Edit/)).toHaveLength(2);
     expect(screen.getAllByLabelText(/Delete/)).toHaveLength(2);
   });
+
+  it('should preserve the given todo order regardless of overdue status', () => {
+    const mixedTodos = [
+      { id: 1, title: 'On time', dueDate: '2099-12-31', completed: 0, createdAt: '2025-11-03T00:00:00Z' },
+      { id: 2, title: 'Overdue', dueDate: '2020-01-01', completed: 0, createdAt: '2025-11-02T00:00:00Z' },
+      { id: 3, title: 'No date', dueDate: null, completed: 0, createdAt: '2025-11-01T00:00:00Z' },
+    ];
+
+    render(<TodoList todos={mixedTodos} {...mockHandlers} isLoading={false} />);
+
+    const titles = screen.getAllByRole('heading', { level: 3 }).map((el) => el.textContent);
+    expect(titles).toEqual(['On time', 'Overdue', 'No date']);
+  });
 });

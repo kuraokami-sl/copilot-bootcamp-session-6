@@ -29,7 +29,7 @@ Web app (per [plan.md](./plan.md) Structure Decision): `packages/frontend/src/` 
 
 **Purpose**: Prepare the new module location for the date utility
 
-- [ ] T001 Create `packages/frontend/src/utils/` and `packages/frontend/src/utils/__tests__/` directories to host the new date utility and its tests
+- [X] T001 Create `packages/frontend/src/utils/` and `packages/frontend/src/utils/__tests__/` directories to host the new date utility and its tests
 
 ---
 
@@ -39,8 +39,8 @@ Web app (per [plan.md](./plan.md) Structure Decision): `packages/frontend/src/` 
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T002 [P] Write failing unit tests for `isOverdue(dueDate, completed)` in `packages/frontend/src/utils/__tests__/dateUtils.test.js` covering: past date + incomplete → true; past date + complete → false; today + incomplete → false; future date + incomplete → false; null/empty date → false; boolean `completed` → false (per [data-model.md](./data-model.md), FR-001–FR-004)
-- [ ] T003 Implement `isOverdue(dueDate, completed)` pure function in `packages/frontend/src/utils/dateUtils.js` using local-date string comparison (`new Date().toLocaleDateString('en-CA')`) per [research.md](./research.md) Q2, satisfying T002's tests
+- [X] T002 [P] Write failing unit tests for `isOverdue(dueDate, completed)` in `packages/frontend/src/utils/__tests__/dateUtils.test.js` covering: past date + incomplete → true; past date + complete → false; today + incomplete → false; future date + incomplete → false; null/empty date → false; boolean `completed` → false (per [data-model.md](./data-model.md), FR-001–FR-004)
+- [X] T003 Implement `isOverdue(dueDate, completed)` pure function in `packages/frontend/src/utils/dateUtils.js` using local-date string comparison (`new Date().toLocaleDateString('en-CA')`) per [research.md](./research.md) Q2, satisfying T002's tests
 
 **Checkpoint**: Foundation ready — `isOverdue` is implemented, tested, and passing. User story implementation can now begin.
 
@@ -54,12 +54,12 @@ Web app (per [plan.md](./plan.md) Structure Decision): `packages/frontend/src/` 
 
 ### Tests for User Story 1
 
-- [ ] T004 [P] [US1] Write failing rendering tests in `packages/frontend/src/components/__tests__/TodoCard.test.js` for: overdue todo shows `todo-card--overdue` class + "Overdue" text; on-time todo does not; future-date todo does not; no-due-date todo does not; due-today todo does not (FR-001, FR-003, FR-004)
+- [X] T004 [P] [US1] Write failing rendering tests in `packages/frontend/src/components/__tests__/TodoCard.test.js` for: overdue todo shows `todo-card--overdue` class + "Overdue" text; on-time todo does not; future-date todo does not; no-due-date todo does not; due-today todo does not (FR-001, FR-003, FR-004)
 
 ### Implementation for User Story 1
 
-- [ ] T005 [US1] Import `isOverdue` and conditionally render the `todo-card--overdue` class plus an "Overdue" text badge (with ⚠ icon) next to the due date in `packages/frontend/src/components/TodoCard.js` per [contracts/ui-state.md](./contracts/ui-state.md) (depends on T003)
-- [ ] T006 [US1] Add `.todo-card--overdue` styles (border/badge using `var(--danger-color)`, no hard-coded colours) to `packages/frontend/src/App.css`, verified in both light and dark mode via `packages/frontend/src/styles/theme.css` tokens
+- [X] T005 [US1] Import `isOverdue` and conditionally render the `todo-card--overdue` class plus an "Overdue" text badge (with ⚠ icon) next to the due date in `packages/frontend/src/components/TodoCard.js` per [contracts/ui-state.md](./contracts/ui-state.md) (depends on T003)
+- [X] T006 [US1] Add `.todo-card--overdue` styles (border/badge using `var(--danger-color)`, no hard-coded colours) to `packages/frontend/src/App.css`, verified in both light and dark mode via `packages/frontend/src/styles/theme.css` tokens
 
 **Checkpoint**: User Story 1 is fully functional and independently testable — overdue items are visually distinguishable on load.
 
@@ -75,7 +75,7 @@ Web app (per [plan.md](./plan.md) Structure Decision): `packages/frontend/src/` 
 
 ### Tests for User Story 2
 
-- [ ] T007 [P] [US2] Write tests in `packages/frontend/src/components/__tests__/TodoCard.test.js` for: toggling an overdue todo to complete removes the `todo-card--overdue` class/badge on re-render; a todo rendered as already-completed with a past due date never shows the badge (FR-002, FR-005)
+- [X] T007 [P] [US2] Write tests in `packages/frontend/src/components/__tests__/TodoCard.test.js` for: toggling an overdue todo to complete removes the `todo-card--overdue` class/badge on re-render; a todo rendered as already-completed with a past due date never shows the badge (FR-002, FR-005)
 
 **Checkpoint**: User Stories 1 AND 2 both work independently.
 
@@ -91,7 +91,7 @@ Web app (per [plan.md](./plan.md) Structure Decision): `packages/frontend/src/` 
 
 ### Tests for User Story 3
 
-- [ ] T008 [P] [US3] Write tests in `packages/frontend/src/components/__tests__/TodoCard.test.js` for: editing an overdue todo's due date to today/future removes the badge; editing an on-time todo's due date to the past adds the badge; clearing an overdue todo's due date removes the badge (FR-006)
+- [X] T008 [P] [US3] Write tests in `packages/frontend/src/components/__tests__/TodoCard.test.js` for: editing an overdue todo's due date to today/future removes the badge; editing an on-time todo's due date to the past adds the badge; clearing an overdue todo's due date removes the badge (FR-006)
 
 **Checkpoint**: All three user stories are independently functional.
 
@@ -101,7 +101,7 @@ Web app (per [plan.md](./plan.md) Structure Decision): `packages/frontend/src/` 
 
 **Purpose**: Validate the negative constraints (FR-008, FR-009) and overall quality gates from the clarification session and constitution
 
-- [ ] T009 [P] Add a regression test in `packages/frontend/src/components/__tests__/TodoList.test.js` confirming todo display order is unchanged by overdue status (FR-008)
+- [X] T009 [P] Add a regression test in `packages/frontend/src/components/__tests__/TodoList.test.js` confirming todo display order is unchanged by overdue status (FR-008)
 - [ ] T010 Run `npx eslint packages/frontend/src` and fix any violations introduced by this feature
 - [ ] T011 Run `npx jest --coverage --collectCoverageFrom="packages/frontend/src/**/*.js" packages/frontend/src/utils/__tests__/dateUtils.test.js packages/frontend/src/components/__tests__/TodoCard.test.js packages/frontend/src/components/__tests__/TodoList.test.js` and confirm ≥80% coverage per Testing Guidelines
 - [ ] T012 Execute [quickstart.md](./quickstart.md) Scenarios A–H manually in the browser (light + dark mode) and confirm all pass

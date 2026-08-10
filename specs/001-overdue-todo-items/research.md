@@ -34,7 +34,8 @@ ISO date strings sort lexicographically.
 and comparing timestamps would introduce off-by-one errors around midnight and
 timezone boundaries because `new Date('2026-08-10')` is parsed as UTC midnight,
 which may be "yesterday" in western timezones. String comparison against the local
-date string eliminates that ambiguity.
+date string eliminates that ambiguity, and directly satisfies FR-004 (due-today is
+never overdue).
 
 **Alternatives considered**:
 - `new Date(dueDate) < new Date()` — rejected; midnight UTC/local timezone mismatch
@@ -65,7 +66,7 @@ to implement and works across all assistive technologies.
 
 **Decision**: The `isOverdue` function signature is
 `isOverdue(dueDate, completed)` and returns `false` immediately when
-`completed` is truthy (1 or `true`).
+`completed` is truthy (1 or `true`), directly satisfying FR-002.
 
 **Rationale**: The backend stores `completed` as an integer (0/1) as confirmed
 in the source (`checked={todo.completed === 1}`). The utility must handle both
@@ -75,6 +76,24 @@ integer and boolean representations defensively since the API may evolve.
 - Check `completed === 0` strictly — rejected; fragile against future API changes
   that return a boolean.
 - Rely on callers to filter — rejected; puts an implicit contract on every call site.
+
+---
+
+## Question 5: How is immediate re-evaluation achieved for User Stories 2 and 3?
+
+**Decision**: No dedicated mechanism is needed — `isOverdue` is called during every
+`TodoCard` render, and React already re-renders `TodoCard` whenever `todo.completed`
+or `todo.dueDate` changes (both flow down as props from parent state). Toggling
+completion or editing the due date already triggers a state update and re-render
+in the existing codebase.
+
+**Rationale**: Since overdue state is derived (not stored), it is automatically
+recomputed on every render with no caching, timers, or subscriptions required.
+
+**Alternatives considered**:
+- `setInterval` polling to refresh overdue state — rejected; unnecessary since the
+  state changes only in response to user actions that already trigger re-renders,
+  and continuous polling for elapsed time was explicitly scoped out (edge cases).
 
 ---
 

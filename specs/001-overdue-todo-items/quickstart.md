@@ -52,7 +52,10 @@ npx jest packages/frontend/src/components/__tests__/TodoCard.test.js --verbose
 | Completed past-due todo | Root does NOT have `todo-card--overdue`; "Overdue" text absent |
 | On-time incomplete todo | Root does NOT have `todo-card--overdue` |
 | No-due-date todo | Root does NOT have `todo-card--overdue` |
-| User toggles overdue → complete | `todo-card--overdue` class absent after re-render |
+| Due-today todo | Root does NOT have `todo-card--overdue` |
+| User toggles overdue → complete | `todo-card--overdue` class absent after re-render (US2) |
+| User edits due date to future | `todo-card--overdue` class absent after re-render (US3) |
+| User edits due date to past | `todo-card--overdue` class present after re-render (US3) |
 
 ---
 
@@ -67,31 +70,37 @@ npm run start
 
 Open [http://localhost:3000](http://localhost:3000) in a browser.
 
-### Scenario A — Overdue item is visually distinct
+### Scenario A — Overdue item is visually distinct (User Story 1)
 
 1. Create a todo with title "Past task" and due date set to any date before today.
 2. Verify the todo card shows an "Overdue" badge and a danger-colour accent.
 3. Verify no other todo cards show the badge.
 
-### Scenario B — Completed past-due item is not marked overdue
+### Scenario B — Completed past-due item is not marked overdue (User Story 2)
 
 1. Find (or create) a todo with a past due date that is currently showing as overdue.
 2. Check the checkbox to mark it complete.
 3. Verify the "Overdue" badge disappears immediately without a page reload.
 
-### Scenario C — Editing due date removes overdue indicator
+### Scenario C — Editing due date removes overdue indicator (User Story 3)
 
 1. Find an overdue todo.
 2. Click Edit and change the due date to today or a future date. Save.
 3. Verify the "Overdue" badge is gone immediately.
 
-### Scenario D — Removing due date removes overdue indicator
+### Scenario D — Removing due date removes overdue indicator (User Story 3)
 
 1. Find an overdue todo.
 2. Click Edit and clear the due date field. Save.
 3. Verify no date and no overdue badge is shown.
 
-### Scenario E — Dark mode
+### Scenario E — Editing an on-time todo to a past date shows overdue (User Story 3)
+
+1. Find a todo due in the future (or with no due date).
+2. Click Edit and set the due date to a date before today. Save.
+3. Verify the "Overdue" badge appears immediately.
+
+### Scenario F — Dark mode
 
 1. Toggle dark mode using the theme toggle button.
 2. Verify the overdue badge uses the dark-mode danger colour token (`--danger-color`

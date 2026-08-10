@@ -22,7 +22,7 @@ No new fields, tables, or migrations are introduced by this feature.
 ## Derived State: `isOverdue`
 
 This is a **computed value** — it is never stored. It is derived at render time from
-existing todo fields.
+existing todo fields, satisfying FR-001 through FR-004.
 
 **Signature**: `isOverdue(dueDate: string | null, completed: number | boolean): boolean`
 
@@ -30,10 +30,10 @@ existing todo fields.
 
 | Condition | Result |
 |-----------|--------|
-| `completed` is truthy (1 or `true`) | `false` — completed items are never overdue |
-| `dueDate` is null or empty string | `false` — no due date means no overdue state |
-| `dueDate < today` (local date string, `YYYY-MM-DD`) | `true` — item is overdue |
-| `dueDate >= today` | `false` — on time or future |
+| `completed` is truthy (1 or `true`) | `false` — completed items are never overdue (FR-002) |
+| `dueDate` is null or empty string | `false` — no due date means no overdue state (FR-003) |
+| `dueDate < today` (local date string, `YYYY-MM-DD`) | `true` — item is overdue (FR-001) |
+| `dueDate >= today` | `false` — on time or due today, never overdue (FR-004) |
 
 **Today's date** is computed as `new Date().toLocaleDateString('en-CA')` which returns
 `YYYY-MM-DD` in the client's local timezone, matching the format of stored `dueDate` values.
@@ -50,10 +50,10 @@ existing todo fields.
 [complete, any date]       →  never overdue  (even if past)
 ```
 
-Transitions that affect the overdue indicator:
+Transitions that affect the overdue indicator (map to User Stories 2 and 3, FR-005/FR-006):
 
-- User marks todo **complete** → indicator removed immediately (same render cycle)
-- User changes due date to **today or future** → indicator removed immediately
-- User changes due date to **past date** → indicator shown immediately
-- User **removes** due date → indicator removed immediately
-- Page **loads/reloads** → indicator reflects current local date at load time
+- User marks todo **complete** → indicator removed immediately (same render cycle) — US2
+- User changes due date to **today or future** → indicator removed immediately — US3
+- User changes due date to **past date** → indicator shown immediately — US3
+- User **removes** due date → indicator removed immediately — US3
+- Page **loads/reloads** → indicator reflects current local date at load time — US1

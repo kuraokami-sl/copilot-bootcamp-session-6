@@ -6,11 +6,12 @@
 
 ## Summary
 
-Add a visual overdue indicator to the `TodoCard` component so that any incomplete todo item
-whose due date is strictly before today is immediately distinguishable from on-time or
-undated items. The change is purely a frontend presentation concern — no backend modifications
-are required. A pure utility function (`isOverdue`) encapsulates the date comparison logic and
-is independently unit-tested.
+Add a visual overdue indicator to the `TodoCard` component so that any incomplete todo whose
+due date is strictly before today is immediately distinguishable (User Story 1), the indicator
+disappears the moment a task is completed (User Story 2), and it reacts immediately when the
+due date is changed or cleared (User Story 3). The change is purely a frontend presentation
+concern — no backend modifications are required. A pure utility function (`isOverdue`)
+encapsulates the date comparison logic and is independently unit-tested.
 
 ## Technical Context
 
@@ -27,12 +28,12 @@ returned as an ISO date string (`YYYY-MM-DD`). `completed` is stored as integer 
 
 **Project Type**: Web application — React SPA frontend + Express.js REST API backend (monorepo)
 
-**Performance Goals**: Overdue state computed synchronously at render time; no measurable
-performance target beyond instant visual update on toggle/edit.
+**Performance Goals**: Overdue state computed synchronously at render time; instant visual
+update on toggle/edit (User Stories 2 and 3) with no additional network round-trip.
 
 **Constraints**: No backend changes. Must pass ESLint. Must use CSS custom properties
 (no hard-coded colours). Must satisfy the 8 px spacing grid. Must not rely on colour alone
-for the overdue signal (accessible to colour-blind users).
+for the overdue signal (FR-007).
 
 **Scale/Scope**: Single-user todo app; small number of todos per user.
 

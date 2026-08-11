@@ -102,7 +102,7 @@ Web app (per [plan.md](./plan.md) Structure Decision): `packages/frontend/src/` 
 **Purpose**: Validate the negative constraints (FR-008, FR-009) and overall quality gates from the clarification session and constitution
 
 - [X] T009 [P] Add a regression test in `packages/frontend/src/components/__tests__/TodoList.test.js` confirming todo display order is unchanged by overdue status (FR-008)
-- [ ] T010 Run `npx eslint packages/frontend/src` and fix any violations introduced by this feature
+- [X] T010 Run `npx eslint packages/frontend/src` and fix any violations introduced by this feature
 - [ ] T011 Run `npx jest --coverage --collectCoverageFrom="packages/frontend/src/**/*.js" packages/frontend/src/utils/__tests__/dateUtils.test.js packages/frontend/src/components/__tests__/TodoCard.test.js packages/frontend/src/components/__tests__/TodoList.test.js` and confirm ≥80% coverage per Testing Guidelines
 - [ ] T012 Execute [quickstart.md](./quickstart.md) Scenarios A–H manually in the browser (light + dark mode) and confirm all pass
 
